@@ -144,7 +144,7 @@ const Contact = () => {
                 </div>
                 <div>
                   <h4 className="font-medium text-gray-800">Website</h4>
-                  <a href="https://deepika-portfolio.com" className="text-indigo-600 hover:text-indigo-700 transition-colors duration-300">deepika-portfolio.com</a>
+                  <a href="https://deepikagps.vercel.app" className="text-indigo-600 hover:text-indigo-700 transition-colors duration-300">deepika-portfolio.com</a>
                 </div>
               </motion.div>
             </motion.div>
