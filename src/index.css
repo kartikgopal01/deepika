@@ -7,14 +7,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap');
 
 :root {
-  --primary: #3A59D1;
-  --secondary: #B5FCCD;
-  --accent: #7AC6D2;
-  --text-primary: #3A59D1;
-  --text-secondary: #B5FCCD;
-  --skills: #FFC107;
-  --projects: #FF6B6B;
-  --contact: #9C27B0;
+  --primary: #537FE7;
+  --secondary: #C0EEF2;
+  --accent: #181823;
+  --text-primary: #181823;
+  --text-secondary: #537FE7;
+  --skills: #537FE7;
+  --projects: #C0EEF2;
+  --contact: #181823;
 }
 
 html {
@@ -167,21 +167,21 @@ code {
 
 /* Section-specific styles */
 #hero {
-  background-image: radial-gradient(circle at 10% 20%, rgba(182, 252, 205, 0.8) 0%, rgba(122, 198, 210, 0.3) 90%);
+  background-image: radial-gradient(circle at 10% 20%, rgba(192, 238, 242, 0.8) 0%, rgba(83, 127, 231, 0.3) 90%);
 }
 
 #about {
-  background-image: radial-gradient(circle at 90% 80%, rgba(122, 198, 210, 0.3) 0%, rgba(58, 89, 209, 0.1) 90%);
+  background-image: radial-gradient(circle at 90% 80%, rgba(83, 127, 231, 0.3) 0%, rgba(24, 24, 35, 0.1) 90%);
 }
 
 #skills {
-  background-image: radial-gradient(circle at 20% 60%, rgba(255, 193, 7, 0.2) 0%, rgba(255, 255, 255, 0) 70%);
+  background-image: radial-gradient(circle at 20% 60%, rgba(83, 127, 231, 0.2) 0%, rgba(255, 255, 255, 0) 70%);
 }
 
 #projects {
-  background-image: radial-gradient(circle at 80% 30%, rgba(255, 107, 107, 0.2) 0%, rgba(255, 255, 255, 0) 70%);
+  background-image: radial-gradient(circle at 80% 30%, rgba(192, 238, 242, 0.2) 0%, rgba(255, 255, 255, 0) 70%);
 }
 
 #contact {
-  background-image: radial-gradient(circle at 30% 70%, rgba(156, 39, 176, 0.2) 0%, rgba(255, 255, 255, 0) 70%);
+  background-image: radial-gradient(circle at 30% 70%, rgba(24, 24, 35, 0.2) 0%, rgba(255, 255, 255, 0) 70%);
 }

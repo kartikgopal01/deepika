@@ -232,11 +232,11 @@ const Skills = () => {
   };
 
   return (
-    <section id="skills" className="py-10 bg-[#3A59D1] text-white">
+    <section id="skills" className="py-10 bg-[#181823] text-white">
       <div className="container mx-auto px-6">
         <div className="text-center mb-8">
           <h2 className="text-3xl md:text-4xl font-bold mb-2">Skills & Expertise</h2>
-          <div className="w-16 h-1 bg-[#7AC6D2] mx-auto mb-4"></div>
+          <div className="w-16 h-1 bg-[#537FE7] mx-auto mb-4"></div>
           <p className="max-w-2xl mx-auto text-base text-white/80">
             Technologies and tools I work with
           </p>
@@ -256,7 +256,7 @@ const Skills = () => {
               className="mb-8"
               variants={itemVariants}
             >
-              <h3 className="text-xl font-semibold text-[#B5FCCD] mb-5 text-center md:text-left">
+              <h3 className="text-xl font-semibold text-[#C0EEF2] mb-5 text-center md:text-left">
                 {category.name}
               </h3>
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 justify-start">
@@ -268,7 +268,7 @@ const Skills = () => {
                     whileHover="hover"
                   >
                     <motion.div 
-                      className="w-16 h-16 bg-white/10 rounded-xl p-3 flex items-center justify-center mb-2 transition-all duration-300 backdrop-blur-sm group-hover:bg-white/20 border border-white/10 group-hover:border-[#7AC6D2]/30 shadow-sm"
+                      className="w-16 h-16 bg-white/10 rounded-xl p-3 flex items-center justify-center mb-2 transition-all duration-300 backdrop-blur-sm group-hover:bg-white/20 border border-white/10 group-hover:border-[#537FE7]/30 shadow-sm"
                       variants={iconVariants}
                       style={{ 
                         boxShadow: `0 3px 10px rgba(0, 0, 0, 0.1)`,
@@ -279,7 +279,7 @@ const Skills = () => {
                       </div>
                     </motion.div>
                     <motion.span 
-                      className="text-sm font-medium text-white/90 group-hover:text-[#B5FCCD] transition-colors duration-300"
+                      className="text-sm font-medium text-white/90 group-hover:text-[#C0EEF2] transition-colors duration-300"
                       variants={itemVariants}
                     >
                       {tech.name}
