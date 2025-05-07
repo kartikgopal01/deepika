@@ -10,17 +10,17 @@ const Navbar = () => {
   const getLogoColor = () => {
     switch (activeSection) {
       case 'hero':
-        return '#C0EEF2';
+        return '#B5FCCD';
       case 'about':
-        return '#537FE7';
+        return '#7AC6D2';
       case 'skills':
-        return '#537FE7';
+        return '#FFC107';
       case 'projects':
-        return '#C0EEF2';
+        return '#FF6B6B';
       case 'contact':
-        return '#181823';
+        return '#9C27B0';
       default:
-        return '#C0EEF2';
+        return '#B5FCCD';
     }
   };
 
@@ -83,7 +83,7 @@ const Navbar = () => {
         transition={{ duration: 0.5 }}
         className={`fixed w-full z-50 transition-all duration-300 ${
           scrolled 
-            ? 'py-3 bg-[#000000]/95 backdrop-blur-md shadow-lg' 
+            ? 'py-3 bg-[#3A59D1]/95 backdrop-blur-md shadow-lg' 
             : 'py-5 bg-transparent'
         }`}
       >
@@ -130,14 +130,14 @@ const Navbar = () => {
                     key={index}
                     href={link.href}
                     className={`font-medium text-base relative py-2 px-3 rounded-full transition-all duration-200 
-                      ${isActive ? 'text-[#537FE7] bg-white/10' : 'text-[#C0EEF2] hover:text-[#537FE7]'}`}
+                      ${isActive ? 'text-[#7AC6D2] bg-white/10' : 'text-[#B5FCCD] hover:text-[#7AC6D2]'}`}
                     whileHover={{ scale: 1.05 }}
                     transition={{ type: "spring", stiffness: 400, damping: 10 }}
                   >
                     {link.name}
                     {isActive && (
                       <motion.span 
-                        className="absolute bottom-0 left-0 right-0 mx-auto w-1/2 h-0.5 bg-[#537FE7]"
+                        className="absolute bottom-0 left-0 right-0 mx-auto w-1/2 h-0.5 bg-[#7AC6D2]"
                         layoutId="navbar-underline"
                       />
                     )}
@@ -154,7 +154,7 @@ const Navbar = () => {
             >
               <a 
                 href="#contact" 
-                className="bg-[#537FE7] hover:bg-[#3a5aa8] text-[#C0EEF2] py-2 px-6 rounded-full font-medium transition-all duration-200 shadow-lg"
+                className="bg-[#7AC6D2] hover:bg-[#5ba7b3] text-[#3A59D1] py-2 px-6 rounded-full font-medium transition-all duration-200 shadow-lg"
               >
                 Let's Talk
               </a>
@@ -163,7 +163,7 @@ const Navbar = () => {
             {/* Mobile Menu Button */}
             <motion.button
               onClick={() => setIsOpen(!isOpen)}
-              className="block md:hidden text-[#C0EEF2] focus:outline-none z-50"
+              className="block md:hidden text-[#B5FCCD] focus:outline-none z-50"
               whileTap={{ scale: 0.9 }}
             >
               <div className="w-8 h-8 flex items-center justify-center">
@@ -220,7 +220,7 @@ const Navbar = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 bg-[#181823] z-40 md:hidden"
+            className="fixed inset-0 bg-[#3A59D1] z-40 md:hidden"
           >
             <div className="flex flex-col items-center justify-center h-full space-y-8">
               {navLinks.map((link, index) => {
@@ -230,7 +230,7 @@ const Navbar = () => {
                     key={index}
                     href={link.href}
                     className={`text-xl py-3 px-8 rounded-full ${
-                      isActive ? 'text-[#537FE7] bg-white/10' : 'text-[#C0EEF2]'
+                      isActive ? 'text-[#7AC6D2] bg-white/10' : 'text-[#B5FCCD]'
                     }`}
                     onClick={() => setIsOpen(false)}
                     initial={{ opacity: 0, y: 20 }}
@@ -247,6 +247,23 @@ const Navbar = () => {
                   </motion.a>
                 );
               })}
+              
+              <motion.a
+                href="#contact"
+                className="mt-6 bg-[#7AC6D2] hover:bg-[#5ba7b3] text-[#3A59D1] py-3 px-8 rounded-full font-medium shadow-lg"
+                onClick={() => setIsOpen(false)}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ 
+                  opacity: 1, 
+                  y: 0,
+                  transition: { delay: navLinks.length * 0.1 } 
+                }}
+                exit={{ opacity: 0, y: 20 }}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Let's Talk
+              </motion.a>
             </div>
           </motion.div>
         )}

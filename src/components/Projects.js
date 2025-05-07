@@ -10,7 +10,7 @@ const Projects = () => {
       title: 'E-Commerce Platform',
       description: 'A full-stack e-commerce platform with user authentication, product management, and payment integration.',
       tech: ['React', 'Node.js', 'MongoDB', 'Express'],
-      imageUrl: 'https://placehold.co/600x400/181823/C0EEF2?text=E-Commerce',
+      imageUrl: 'https://placehold.co/600x400/3A59D1/B5FCCD?text=E-Commerce',
       category: 'fullstack',
       link: '#',
       github: '#',
@@ -20,7 +20,7 @@ const Projects = () => {
       title: 'Weather Dashboard',
       description: 'Interactive weather dashboard that displays current and forecasted weather data using a third-party API.',
       tech: ['React', 'Tailwind CSS', 'API Integration'],
-      imageUrl: 'https://placehold.co/600x400/181823/C0EEF2?text=Weather+App',
+      imageUrl: 'https://placehold.co/600x400/3A59D1/B5FCCD?text=Weather+App',
       category: 'frontend',
       link: '#',
       github: '#',
@@ -30,7 +30,7 @@ const Projects = () => {
       title: 'Task Management App',
       description: 'A task management application with drag-and-drop functionality, task categorization, and user collaboration.',
       tech: ['React', 'Firebase', 'Tailwind CSS'],
-      imageUrl: 'https://placehold.co/600x400/181823/C0EEF2?text=Task+Manager',
+      imageUrl: 'https://placehold.co/600x400/3A59D1/B5FCCD?text=Task+Manager',
       category: 'fullstack',
       link: '#',
       github: '#',
@@ -41,7 +41,7 @@ const Projects = () => {
       title: 'Blog API',
       description: 'RESTful API for a blog platform with authentication, post creation, comments, and user management.',
       tech: ['Node.js', 'Express', 'MongoDB', 'JWT'],
-      imageUrl: 'https://placehold.co/600x400/181823/C0EEF2?text=Blog+API',
+      imageUrl: 'https://placehold.co/600x400/3A59D1/B5FCCD?text=Blog+API',
       category: 'backend',
       link: '#',
       github: '#',
@@ -51,7 +51,7 @@ const Projects = () => {
       title: 'Chat Application',
       description: 'Real-time chat application with private messaging, group chats, and message notifications.',
       tech: ['React', 'Socket.io', 'Node.js', 'MongoDB'],
-      imageUrl: 'https://placehold.co/600x400/181823/C0EEF2?text=Chat+App',
+      imageUrl: 'https://placehold.co/600x400/3A59D1/B5FCCD?text=Chat+App',
       category: 'fullstack',
       link: '#',
       github: '#',
@@ -71,12 +71,12 @@ const Projects = () => {
       : projects.filter(project => project.category === activeFilter);
 
   return (
-    <section id="projects" className="py-24 bg-[#C0EEF2]/30">
+    <section id="projects" className="py-24 bg-[#B5FCCD]/30">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-[#181823] mb-3">My Projects</h2>
-          <div className="w-20 h-1 bg-[#537FE7] mx-auto"></div>
-          <p className="max-w-2xl mx-auto mt-6 text-lg text-[#181823]/80">
+          <h2 className="text-3xl md:text-4xl font-bold text-[#3A59D1] mb-3">My Projects</h2>
+          <div className="w-20 h-1 bg-[#3D90D7] mx-auto"></div>
+          <p className="max-w-2xl mx-auto mt-6 text-lg text-[#3A59D1]/80">
             Here's a selection of projects I've worked on that showcase my skills and experience.
           </p>
         </div>
@@ -89,8 +89,8 @@ const Projects = () => {
               onClick={() => setActiveFilter(filter.value)}
               className={`px-5 py-3 rounded-md font-medium transition-all duration-200 ${
                 activeFilter === filter.value 
-                  ? 'bg-[#181823] text-white shadow-md' 
-                  : 'bg-white text-[#181823] hover:bg-[#C0EEF2]/50 border border-[#537FE7]/20'
+                  ? 'bg-[#3A59D1] text-white shadow-md' 
+                  : 'bg-white text-[#3A59D1] hover:bg-[#B5FCCD]/50 border border-[#3D90D7]/20'
               }`}
             >
               {filter.name}
@@ -112,7 +112,7 @@ const Projects = () => {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.3 }}
-                className="bg-white rounded-lg overflow-hidden border border-[#537FE7]/10 shadow-md hover:shadow-lg transition-all duration-300 group"
+                className="bg-white rounded-lg overflow-hidden border border-[#3D90D7]/10 shadow-md hover:shadow-lg transition-all duration-300 group"
               >
                 <div className="relative h-48 overflow-hidden">
                   <img 
@@ -120,7 +120,7 @@ const Projects = () => {
                     alt={project.title} 
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#181823]/90 via-[#181823]/50 to-transparent flex items-end">
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#3A59D1]/90 via-[#3A59D1]/50 to-transparent flex items-end">
                     <div className="p-5">
                       <h3 className="text-xl font-bold text-white">{project.title}</h3>
                     </div>
@@ -128,13 +128,13 @@ const Projects = () => {
                 </div>
                 
                 <div className="p-5">
-                  <p className="text-[#181823]/80 mb-4 text-sm leading-relaxed">{project.description}</p>
+                  <p className="text-[#3A59D1]/80 mb-4 text-sm leading-relaxed">{project.description}</p>
                   
                   <div className="flex flex-wrap gap-2 mb-4">
                     {project.tech.map((tech, index) => (
                       <span 
                         key={index} 
-                        className="px-2 py-1 text-xs font-medium bg-[#C0EEF2]/50 text-[#537FE7] rounded-md"
+                        className="px-2 py-1 text-xs font-medium bg-[#B5FCCD]/50 text-[#3D90D7] rounded-md"
                       >
                         {tech}
                       </span>
@@ -144,7 +144,7 @@ const Projects = () => {
                   <div className="flex items-center justify-between mt-6">
                     <a 
                       href={project.link} 
-                      className="inline-flex items-center text-[#537FE7] font-medium hover:text-[#181823] transition-colors"
+                      className="inline-flex items-center text-[#3D90D7] font-medium hover:text-[#3A59D1] transition-colors"
                       target="_blank" 
                       rel="noopener noreferrer"
                     >
@@ -156,7 +156,7 @@ const Projects = () => {
                     
                     <a 
                       href={project.github} 
-                      className="inline-flex items-center text-[#181823]/70 hover:text-[#181823] transition-colors"
+                      className="inline-flex items-center text-[#3A59D1]/70 hover:text-[#3A59D1] transition-colors"
                       target="_blank" 
                       rel="noopener noreferrer"
                     >
