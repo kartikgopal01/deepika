@@ -9,7 +9,7 @@ import Footer from './components/Footer';
 import LoadingScreen from './components/LoadingScreen';
 
 function App() {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     // Improved loading time with a cleaner effect
