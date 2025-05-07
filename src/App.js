@@ -31,7 +31,7 @@ function App() {
   }
 
   return (
-    <div className="bg-gradient-to-b from-slate-50 to-gray-100 text-gray-900 min-h-screen">
+    <div className="bg-[#B5FCCD] text-[#3A59D1] min-h-screen">
       <Navbar />
       <main>
         <Hero />

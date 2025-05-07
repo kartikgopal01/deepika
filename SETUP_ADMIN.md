@@ -41,7 +41,7 @@ The setupDatabase script creates an admin user automatically with predefined cre
    ```
 
 2. The script creates an admin user with:
-   - Email: admin@kartik.com
+   - Email: admin@Deepika.com
    - Password: admin123
 
 3. You can then log in with these credentials to access admin features.
