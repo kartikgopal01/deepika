@@ -1,25 +1,25 @@
 {
-  "short_name": "Daaku",
-  "name": "Deepika",
+  "short_name": "Kartik.dev",
+  "name": "Deepika S",
   "icons": [
     {
-      "src": "icon.png",
+      "src": "logo.png",
       "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/png"
+      "type": "image/x-icon"
     },
     {
-      "src": "icon.png",
+      "src": "logo.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "icon.png",
+      "src": "logo.png",
       "type": "image/png",
       "sizes": "512x512"
     }
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#ff6b6b",
+  "theme_color": "#000000",
   "background_color": "#ffffff"
 }

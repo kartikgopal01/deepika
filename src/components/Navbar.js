@@ -1,274 +1,198 @@
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState, useContext, useEffect } from 'react';
+import { ThemeContext } from '../contexts/ThemeContext';
+import { Nav, NavLinks, NavLink, MenuToggle, Logo } from './StyledComponents';
+import styled from 'styled-components';
+import { motion } from 'framer-motion';
+import ThemeToggle from './ThemeToggle';
 
-const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const [activeSection, setActiveSection] = useState('hero');
+const CloseButton = styled.button`
+  position: absolute;
+  top: 17px;
+  right: 23px;
+  background: none;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--text);
+  transition: all 0.3s ease;
+  z-index: 10;
+  
+  &:hover {
+    background: var(--accent);
+    color: white;
+    transform: rotate(90deg);
+  }
+  
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+  
+  @media (min-width: 769px) {
+    display: none;
+  }
+`;
 
-  // Logo color based on active section
-  const getLogoColor = () => {
-    switch (activeSection) {
-      case 'hero':
-        return '#B5FCCD';
-      case 'about':
-        return '#7AC6D2';
-      case 'skills':
-        return '#FFC107';
-      case 'projects':
-        return '#FF6B6B';
-      case 'contact':
-        return '#9C27B0';
-      default:
-        return '#B5FCCD';
+// Animation variants
+const navVariants = {
+  hidden: { opacity: 0 },
+  visible: { 
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.2
+    }
+  }
+};
+
+const navItemVariants = {
+  hidden: { y: -20, opacity: 0 },
+  visible: { 
+    y: 0, 
+    opacity: 1,
+    transition: { 
+      type: "spring", 
+      stiffness: 300, 
+      damping: 15
+    }
+  }
+};
+
+const NavItem = ({ href, onClick, children, isActive }) => {
+  const handleClick = (e) => {
+    e.preventDefault();
+    
+    const targetId = href.substring(1);
+    const targetElement = document.getElementById(targetId);
+    
+    if (targetElement) {
+      // Close mobile menu if open
+      onClick();
+      
+      // Smooth scroll to the element
+      window.scrollTo({
+        top: targetElement.offsetTop - 100, // Offset for navbar height
+        behavior: 'smooth'
+      });
+      
+      // Update URL hash without scrolling
+      window.history.pushState(null, null, href);
     }
   };
+  
+  return (
+    <motion.div variants={navItemVariants}>
+      <NavLink href={href} onClick={handleClick} className={isActive ? 'active' : ''}>
+        {children}
+      </NavLink>
+    </motion.div>
+  );
+};
 
+const Navbar = () => {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const { themeMode, toggleTheme } = useContext(ThemeContext);
+  const [activeLink, setActiveLink] = useState("home");
+  
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
+  };
+  
+  const closeMenu = () => {
+    setMenuOpen(false);
+  };
+  
+  // Update active link based on scroll position
   useEffect(() => {
-    // Disable body scroll when mobile menu is open
-    if (isOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'auto';
-    }
-
     const handleScroll = () => {
-      // Update scrolled state
-      const offset = window.scrollY;
-      if (offset > 50) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
-
-      // Update active section based on scroll position
-      const sections = ['hero', 'about', 'skills', 'projects', 'contact'];
-      for (const section of sections) {
-        const element = document.getElementById(section);
-        if (element) {
-          const rect = element.getBoundingClientRect();
-          const buffer = section === 'hero' ? 300 : 200; // Extra buffer for hero section
-          
-          if (rect.top <= buffer && rect.bottom >= buffer) {
-            setActiveSection(section);
-            break;
-          }
+      const sections = ["home", "about", "work", "projects", "contact"];
+      const scrollPosition = window.scrollY + 200; // Reduced offset for better detection
+      
+      // Find all section elements
+      const sectionElements = sections.map(id => ({
+        id,
+        element: document.getElementById(id)
+      })).filter(item => item.element !== null);
+      
+      // Sort by position on page to handle overlaps correctly
+      sectionElements.sort((a, b) => {
+        return a.element.offsetTop - b.element.offsetTop;
+      });
+      
+      // Find the current active section
+      let currentSection = sectionElements[0]?.id || "home";
+      
+      for (const { id, element } of sectionElements) {
+        const offsetTop = element.offsetTop - 100; // Offset for navbar height
+        const offsetBottom = offsetTop + element.offsetHeight;
+        
+        if (scrollPosition >= offsetTop && scrollPosition < offsetBottom) {
+          currentSection = id;
+          break;
         }
       }
+      
+      // Only update if changed to avoid unnecessary rerenders
+      if (currentSection !== activeLink) {
+        setActiveLink(currentSection);
+      }
     };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      document.body.style.overflow = 'auto';
-    };
-  }, [isOpen]);
-
-  const navLinks = [
-    { name: 'Home', href: '#hero' },
-    { name: 'About', href: '#about' },
-    { name: 'Skills', href: '#skills' },
-    { name: 'Projects', href: '#projects' },
-    { name: 'Contact', href: '#contact' },
-  ];
-
-  const logoColor = getLogoColor();
-
+    
+    window.addEventListener("scroll", handleScroll);
+    // Initial call to set the correct active link on load
+    setTimeout(handleScroll, 100);
+    
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [activeLink]);
+  
+  // Manually handle clicks for more immediate feedback
+  const handleNavClick = (id) => {
+    closeMenu();
+    setActiveLink(id.substring(1)); // Remove the # from the id
+  };
+  
   return (
-    <>
-      {/* Fixed navigation bar */}
-      <motion.nav 
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.5 }}
-        className={`fixed w-full z-50 transition-all duration-300 ${
-          scrolled 
-            ? 'py-3 bg-[#3A59D1]/95 backdrop-blur-md shadow-lg' 
-            : 'py-5 bg-transparent'
-        }`}
-      >
-        <div className="container mx-auto px-6">
-          <div className="flex justify-between items-center">
-            <motion.div 
-              className="text-2xl font-bold z-50"
-              whileHover={{ scale: 1.05 }}
-              transition={{ type: "spring", stiffness: 400, damping: 10 }}
-            >
-              <a 
-                href="#hero" 
-                className="transition-all duration-500 flex items-center"
-                style={{ color: logoColor }}
-              >
-                <span className="relative">
-                  <motion.div
-                    initial={{ rotate: 0 }}
-                    animate={{ rotate: activeSection === 'hero' ? 0 : activeSection === 'about' ? 5 : activeSection === 'skills' ? -5 : activeSection === 'projects' ? 10 : -10 }}
-                    transition={{ duration: 0.5 }}
-                  >
-                    <img 
-                      src='images/logo.png' 
-                      width={70} 
-                      height={50} 
-                      className="rounded-md" 
-                      alt="Logo"
-                      style={{ 
-                        filter: `drop-shadow(0 0 8px ${logoColor})`,
-                        transition: 'filter 0.5s ease'
-                      }}
-                    />
-                  </motion.div>
-                </span>
-              </a>
-            </motion.div>
-
-            {/* Desktop Menu */}
-            <div className="hidden md:flex space-x-8">
-              {navLinks.map((link, index) => {
-                const isActive = activeSection === link.href.substring(1);
-                return (
-                  <motion.a
-                    key={index}
-                    href={link.href}
-                    className={`font-medium text-base relative py-2 px-3 rounded-full transition-all duration-200 
-                      ${isActive ? 'text-[#7AC6D2] bg-white/10' : 'text-[#B5FCCD] hover:text-[#7AC6D2]'}`}
-                    whileHover={{ scale: 1.05 }}
-                    transition={{ type: "spring", stiffness: 400, damping: 10 }}
-                  >
-                    {link.name}
-                    {isActive && (
-                      <motion.span 
-                        className="absolute bottom-0 left-0 right-0 mx-auto w-1/2 h-0.5 bg-[#7AC6D2]"
-                        layoutId="navbar-underline"
-                      />
-                    )}
-                  </motion.a>
-                );
-              })}
-            </div>
-
-            {/* Contact Button (Desktop) */}
-            <motion.div 
-              className="hidden md:block"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <a 
-                href="#contact" 
-                className="bg-[#7AC6D2] hover:bg-[#5ba7b3] text-[#3A59D1] py-2 px-6 rounded-full font-medium transition-all duration-200 shadow-lg"
-              >
-                Let's Talk
-              </a>
-            </motion.div>
-
-            {/* Mobile Menu Button */}
-            <motion.button
-              onClick={() => setIsOpen(!isOpen)}
-              className="block md:hidden text-[#B5FCCD] focus:outline-none z-50"
-              whileTap={{ scale: 0.9 }}
-            >
-              <div className="w-8 h-8 flex items-center justify-center">
-                <AnimatePresence mode="wait">
-                  {isOpen ? (
-                    <motion.svg
-                      key="close"
-                      initial={{ rotate: 0 }}
-                      animate={{ rotate: 180 }}
-                      exit={{ rotate: 0 }}
-                      className="w-6 h-6"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M6 18L18 6M6 6l12 12"
-                      />
-                    </motion.svg>
-                  ) : (
-                    <motion.svg
-                      key="menu"
-                      initial={{ rotate: 0 }}
-                      animate={{ rotate: 0 }}
-                      exit={{ rotate: 180 }}
-                      className="w-6 h-6"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M4 6h16M4 12h16M4 18h16"
-                      />
-                    </motion.svg>
-                  )}
-                </AnimatePresence>
-              </div>
-            </motion.button>
-          </div>
-        </div>
-      </motion.nav>
-
-      {/* Mobile menu */}
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div 
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.3 }}
-            className="fixed inset-0 bg-[#3A59D1] z-40 md:hidden"
-          >
-            <div className="flex flex-col items-center justify-center h-full space-y-8">
-              {navLinks.map((link, index) => {
-                const isActive = activeSection === link.href.substring(1);
-                return (
-                  <motion.a
-                    key={index}
-                    href={link.href}
-                    className={`text-xl py-3 px-8 rounded-full ${
-                      isActive ? 'text-[#7AC6D2] bg-white/10' : 'text-[#B5FCCD]'
-                    }`}
-                    onClick={() => setIsOpen(false)}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ 
-                      opacity: 1, 
-                      y: 0,
-                      transition: { delay: index * 0.1 } 
-                    }}
-                    exit={{ opacity: 0, y: 20 }}
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    {link.name}
-                  </motion.a>
-                );
-              })}
-              
-              <motion.a
-                href="#contact"
-                className="mt-6 bg-[#7AC6D2] hover:bg-[#5ba7b3] text-[#3A59D1] py-3 px-8 rounded-full font-medium shadow-lg"
-                onClick={() => setIsOpen(false)}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ 
-                  opacity: 1, 
-                  y: 0,
-                  transition: { delay: navLinks.length * 0.1 } 
-                }}
-                exit={{ opacity: 0, y: 20 }}
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                Let's Talk
-              </motion.a>
-            </div>
+    <Nav>
+      <Logo>
+        DEEPIKA<span>S</span>
+      </Logo>
+      
+      <MenuToggle isOpen={menuOpen} onClick={toggleMenu}>
+        <span></span>
+        <span></span>
+        <span></span>
+      </MenuToggle>
+      
+      <NavLinks isOpen={menuOpen}>
+        <CloseButton onClick={closeMenu}>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </CloseButton>
+        
+        <motion.div
+          variants={navVariants}
+          initial="hidden"
+          animate="visible"
+          style={{ display: "flex", gap: "2rem", alignItems: "center" }}
+          className="nav-container"
+        >
+          <NavItem href="#home" onClick={() => handleNavClick("#home")} isActive={activeLink === 'home'}>Home</NavItem>
+          <NavItem href="#about" onClick={() => handleNavClick("#about")} isActive={activeLink === 'about'}>About</NavItem>
+          <NavItem href="#work" onClick={() => handleNavClick("#work")} isActive={activeLink === 'work'}>My Work</NavItem>
+          <NavItem href="#projects" onClick={() => handleNavClick("#projects")} isActive={activeLink === 'projects'}>Projects</NavItem>
+          <NavItem href="#contact" onClick={() => handleNavClick("#contact")} isActive={activeLink === 'contact'}>Contact</NavItem>
+          <motion.div variants={navItemVariants}>
+            <ThemeToggle />
           </motion.div>
-        )}
-      </AnimatePresence>
-    </>
+        </motion.div>
+      </NavLinks>
+    </Nav>
   );
 };
 

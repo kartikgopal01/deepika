@@ -1,0 +1,63 @@
+/* Add CSS root variables for RGB values */
+:root {
+  --backgroundRGB: 18, 18, 18;
+  --textRGB: 255, 255, 255;
+  --accentRGB: 120, 85, 245;
+  --accent2RGB: 245, 85, 150;
+  --groundRGB: 30, 30, 30;
+  --textSecondaryRGB: 200, 200, 200;
+  --backgroundSecondaryRGB: 25, 25, 25;
+  --gridColor: 255, 255, 255;
+  --dotsColor: 255, 255, 255;
+}
+
+body[data-theme="light"] {
+  --backgroundRGB: 250, 250, 250;
+  --textRGB: 30, 30, 30;
+  --accentRGB: 100, 65, 225;
+  --accent2RGB: 225, 65, 130;
+  --cardBackgroundRGB: 255, 255, 255;
+  --textSecondaryRGB: 80, 80, 80;
+  --backgroundSecondaryRGB: 240, 240, 240;
+  --gridColor: 0, 0, 0;
+  --dotsColor: 0, 0, 0;
+}
+
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
